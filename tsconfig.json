@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "noEmit": true,
+    "strict": true,
+    "esModuleInterop": true,
+    "allowJs": false,
+    "jsx": "react",
+    "resolveJsonModule": true,
+    "target": "ES6",
+  } 
+}
