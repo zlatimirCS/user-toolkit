@@ -12,17 +12,17 @@ import {
 import { RootState } from "../store";
 
 export const fetchUsers = createAsyncThunk<User[]>(
-  "users/fetchUsers",
+  "user/fetchUsers",
   async () => getUsers(),
 );
 
 export const fetchPosts = createAsyncThunk<BlogPost[]>(
-  "users/fetchPosts",
+  "user/fetchPosts",
   async () => getMembers(),
 );
 
 export const removeUser = createAsyncThunk(
-  "users/removeUser",
+  "user/removeUser",
   async (initialUser: number) => {
     try {
       const response = await deleteUser(initialUser);
@@ -32,7 +32,7 @@ export const removeUser = createAsyncThunk(
 );
 
 export const removePost = createAsyncThunk(
-  "users/removePost",
+  "user/removePost",
   async (initialPost: string) => {
     try {
       const response = await deleteBlogPost(initialPost);
@@ -42,7 +42,7 @@ export const removePost = createAsyncThunk(
 );
 
 export const editPost = createAsyncThunk(
-  "blog/editPost",
+  "post/editPost",
   async ({
     id,
     data,
@@ -60,7 +60,6 @@ export const editPost = createAsyncThunk(
 export interface UserState {
   userList: User[];
   allPosts: BlogPost[];
-  refetch: boolean;
   loadingUsers: boolean;
   expandedUserList: number[];
 }
@@ -68,7 +67,6 @@ export interface UserState {
 const initialState = {
   userList: [],
   allPosts: [],
-  refetch: false,
   loadingUsers: true,
   expandedUserList: [],
 } as UserState;
@@ -136,7 +134,6 @@ export default userSlice.reducer;
 
 export const selectUsers = (state: RootState) => state.user.userList;
 export const selectPosts = (state: RootState) => state.user.allPosts;
-export const refetch = (state: RootState) => state.user.refetch;
 export const loadingUsers = (state: RootState) => state.user.loadingUsers;
 export const expandedUserList = (state: RootState) =>
   state.user.expandedUserList;
