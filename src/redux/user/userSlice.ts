@@ -37,7 +37,9 @@ export const removePost = createAsyncThunk(
     try {
       const response = await deleteBlogPost(initialPost);
       return response;
-    } catch (err) {}
+    } catch (err: any) {
+      return rejectWithValue(err.response.data)
+    }
   },
 );
 
@@ -137,3 +139,7 @@ export const selectPosts = (state: RootState) => state.user.allPosts;
 export const loadingUsers = (state: RootState) => state.user.loadingUsers;
 export const expandedUserList = (state: RootState) =>
   state.user.expandedUserList;
+function rejectWithValue(data: any): any {
+  throw new Error("Function not implemented.");
+}
+
