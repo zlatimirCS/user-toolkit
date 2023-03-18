@@ -23,44 +23,36 @@ export const fetchPosts = createAsyncThunk<BlogPost[]>(
 
 export const removeUser = createAsyncThunk(
   "users/removeUser",
-  // eslint-disable-next-line consistent-return
   async (initialUser: number) => {
     try {
       const response = await deleteUser(initialUser);
       return response;
-      // eslint-disable-next-line no-empty
     } catch (err) {}
   },
 );
 
 export const removePost = createAsyncThunk(
   "users/removePost",
-  // eslint-disable-next-line consistent-return
   async (initialPost: string) => {
     try {
       const response = await deleteBlogPost(initialPost);
       return response;
-      // eslint-disable-next-line no-empty
     } catch (err) {}
   },
 );
 
 export const editPost = createAsyncThunk(
   "blog/editPost",
-  // eslint-disable-next-line consistent-return
   async ({
     id,
     data,
   }: {
     id: string;
     data: { userId: number; datePosted: string; title: string; body: string };
-    // eslint-disable-next-line consistent-return
   }) => {
     try {
       const response = await editBlogPost(id, data);
-      console.log('response', response);
       return response;
-      // eslint-disable-next-line no-empty
     } catch (err) {}
   },
 );
