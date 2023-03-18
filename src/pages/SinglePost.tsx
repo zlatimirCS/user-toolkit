@@ -89,7 +89,7 @@ export const SinglePost = () => {
     dispatch(fetchPosts());
     setBodyText(curPost?.body);
     setTitleText(curPost?.title);
-  }, []);
+  }, [posts]);
 
   useEffect(() => {
     setTitle(curPost?.title);
