@@ -118,7 +118,6 @@ export const userSlice = createSlice({
       );
     });
     builder.addCase(editPost.fulfilled, (state, { payload }) => {
-      console.log('payload', payload);
       let id: string;
       if (payload && payload.id && payload.datePosted) {
         id = payload.id;
