@@ -1,10 +1,15 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import {
+  createAsyncThunk,
+  createSlice,
+  isRejectedWithValue,
+} from "@reduxjs/toolkit";
 
 import {
   BlogPost,
   deleteBlogPost,
   editBlogPost,
   getMembers,
+  addBlogPost,
 } from "../../data/data";
 import { RootState } from "../store";
 
@@ -13,8 +18,36 @@ export const fetchPosts = createAsyncThunk<BlogPost[]>(
   async () => getMembers(),
 );
 
+export const addNewPost = createAsyncThunk(
+  "post/addNewPost",
+  async ({
+    id,
+    userId,
+    datePosted,
+    title,
+    body,
+  }: {
+    id: string;
+    userId: number;
+    datePosted: string;
+    title: string;
+    body: string;
+  }) => {
+    try {
+      const response = await addBlogPost({
+        id,
+        userId,
+        datePosted,
+        title,
+        body,
+      });
+      return response;
+    } catch (err) {}
+  },
+);
+
 export const removePost = createAsyncThunk(
-  "user/removePost",
+  "post/removePost",
   async (initialPost: string) => {
     try {
       const response = await deleteBlogPost(initialPost);
@@ -57,6 +90,11 @@ export const postSlice = createSlice({
         return;
       }
       state.allPosts.push(...payload);
+    });
+    builder.addCase(addNewPost.fulfilled, (state, { payload }) => {
+      if (payload) {
+        state.allPosts = [...state.allPosts, payload];
+      }
     });
     builder.addCase(removePost.fulfilled, (state, payload) => {
       state.allPosts = state.allPosts.filter(

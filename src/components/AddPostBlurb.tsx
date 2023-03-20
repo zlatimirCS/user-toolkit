@@ -18,7 +18,7 @@ const StyledAddPostBlurb = styled.div`
   &:hover {
     background-color: var(--white);
   }
-  div {
+  div.add {
     color: var(--primary);
     font-weight: bold;
   }
@@ -38,9 +38,11 @@ export const AddPostBlurb = ({ userId }: IProps) => {
 
   return (
     <StyledAddPostBlurb onClick={() => setModal(true)}>
-      <div>+ Add new blog post</div>
+      <div className="add">+ Add new blog post</div>
       {modal && <Overlay />}
-      {modal && <AddPostModal onClose={onClose} userId={userId} />}
+      {modal && (
+        <AddPostModal onClose={onClose} userId={userId} setModal={setModal} />
+      )}
     </StyledAddPostBlurb>
   );
 };
