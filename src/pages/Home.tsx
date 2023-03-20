@@ -5,7 +5,8 @@ import { Pagination } from "../components/Pagination";
 import { Table } from "../components/Table";
 import { useAppDispatch } from "../hooks/useAppDispatch";
 import { useTypedSelector } from "../hooks/useTypedSelector";
-import { fetchPosts, fetchUsers, selectUsers } from "../redux/user/userSlice";
+import { fetchUsers, selectUsers } from "../redux/user/userSlice";
+import { fetchPosts } from "../redux/post/postSlice";
 
 const StyledWrapper = styled.div`
   padding: 24px;

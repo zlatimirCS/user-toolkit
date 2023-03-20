@@ -7,9 +7,11 @@ import {
   expandedUserList,
   loadingUsers,
   removeUser,
-  selectPosts,
   toggleUserList,
 } from "../redux/user/userSlice";
+import {
+  selectPosts,
+} from "../redux/post/postSlice";
 import { Btn } from "./Btn";
 import { ConfirmModal } from "./ConfirmModal";
 import { Notification } from "./Notification";

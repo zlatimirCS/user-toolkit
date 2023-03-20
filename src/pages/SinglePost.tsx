@@ -15,7 +15,7 @@ import {
   fetchPosts,
   removePost,
   selectPosts,
-} from "../redux/user/userSlice";
+} from "../redux/post/postSlice";
 
 const StyledPost = styled.div`
   padding: 24px;
@@ -82,7 +82,7 @@ export const SinglePost = () => {
   const [bodyText, setBodyText] = useState<string>("");
   const [modal, setModal] = useState<boolean>(false);
 
-  const curPost = posts && posts.filter((post) => post.id === id)[0];
+  const curPost = posts && posts.filter((post: { id: string }) => post.id === id)[0];
   const date = convertDate(curPost?.datePosted);
 
   useEffect(() => {

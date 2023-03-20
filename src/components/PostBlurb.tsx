@@ -6,7 +6,7 @@ import { ConfirmModal } from "../components/ConfirmModal";
 import { Overlay } from "../components/Overlay";
 import { convertDate } from "../helper";
 import { useAppDispatch } from "../hooks/useAppDispatch";
-import { removePost } from "../redux/user/userSlice";
+import { removePost } from "../redux/post/postSlice";
 import { Btn } from "./Btn";
 import { Notification } from "./Notification";
 

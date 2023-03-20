@@ -5,9 +5,11 @@ import {
 } from "@reduxjs/toolkit";
 
 import userReducer from "./user/userSlice";
+import postReducer from "./post/postSlice";
 
 const rootReducer = combineReducers({
   user: userReducer,
+  post: postReducer
   // TODO: Add more reducers here if needed
 });
 
