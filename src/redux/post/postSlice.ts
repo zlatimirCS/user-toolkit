@@ -19,8 +19,7 @@ export const removePost = createAsyncThunk(
     try {
       const response = await deleteBlogPost(initialPost);
       return response;
-    } catch (err: any) {
-    }
+    } catch (err: any) {}
   },
 );
 
@@ -51,9 +50,7 @@ const initialState = {
 export const postSlice = createSlice({
   name: "post",
   initialState,
-  reducers: {
-
-  },
+  reducers: {},
   extraReducers(builder) {
     builder.addCase(fetchPosts.fulfilled, (state, { payload }) => {
       if (state.allPosts.length > 0) {

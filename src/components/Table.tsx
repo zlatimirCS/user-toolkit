@@ -9,14 +9,13 @@ import {
   removeUser,
   toggleUserList,
 } from "../redux/user/userSlice";
-import {
-  selectPosts,
-} from "../redux/post/postSlice";
+import { selectPosts } from "../redux/post/postSlice";
 import { Btn } from "./Btn";
 import { ConfirmModal } from "./ConfirmModal";
 import { Notification } from "./Notification";
 import { Overlay } from "./Overlay";
 import { PostBlurb } from "./PostBlurb";
+import { AddPostBlurb } from "./AddPostBlurb";
 
 const StyledTable = styled.table`
   width: 100%;
@@ -172,6 +171,7 @@ export const Table = ({ subsetOfUsers }: IProps) => {
                             .map((item) => (
                               <PostBlurb key={item.id} post={item} />
                             ))}
+                          <AddPostBlurb userId={user.id} />
                         </div>
                       </td>
                     </tr>
