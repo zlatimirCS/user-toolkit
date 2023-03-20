@@ -44,7 +44,7 @@ export const addBlogPost = (
 ): Promise<BlogPost> => {
   db.blogPosts = [newBlogPost, ...db.blogPosts];
 
-  if (Math.random() < 10000000000000) {
+  if (Math.random() < 0.2) {
     throw new Error("something went wrong!");
   }
 
