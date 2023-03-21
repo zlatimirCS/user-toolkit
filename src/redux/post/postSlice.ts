@@ -42,7 +42,9 @@ export const addNewPost = createAsyncThunk(
         body,
       });
       return response;
-    } catch (err) {}
+    } catch (err: any) {
+      throw isRejectedWithValue(err.message)
+    }
   },
 );
 
@@ -74,10 +76,12 @@ export const editPost = createAsyncThunk(
 
 export interface PostState {
   allPosts: BlogPost[];
+  addingError: boolean;
 }
 
 const initialState = {
   allPosts: [],
+  addingError: false,
 } as PostState;
 
 export const postSlice = createSlice({
@@ -91,7 +95,11 @@ export const postSlice = createSlice({
       }
       state.allPosts.push(...payload);
     });
+    builder.addCase(addNewPost.rejected, (state) => {
+      state.addingError = true;
+    });
     builder.addCase(addNewPost.fulfilled, (state, { payload }) => {
+      state.addingError = false;
       if (payload) {
         state.allPosts = [...state.allPosts, payload];
       }
@@ -116,3 +124,4 @@ export const postSlice = createSlice({
 export default postSlice.reducer;
 
 export const selectPosts = (state: RootState) => state.post.allPosts;
+export const addingError = (state: RootState) => state.post.addingError;

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { v4 as uuidv4 } from "uuid";
 
@@ -7,6 +6,8 @@ import { useAppDispatch } from "../hooks/useAppDispatch";
 import { Btn } from "./Btn";
 import { addNewPost } from "../redux/post/postSlice";
 import { Notification } from "./Notification";
+import { addingError } from "../redux/post/postSlice";
+import { useTypedSelector } from "../hooks/useTypedSelector";
 
 const StyledAddPostModal = styled.div`
   position: fixed;
@@ -47,7 +48,7 @@ export const AddPostModal = ({ onClose, userId, setModal }: IProps) => {
   const [title, setTitle] = useState<string>("");
   const [body, setBody] = useState<string>("");
   const [alert, setAlert] = useState<boolean>(false);
-  const navigate = useNavigate();
+  const isAddingError = useTypedSelector(addingError);
 
   const datePosted = new Date().toDateString();
   const id = uuidv4();
@@ -61,7 +62,7 @@ export const AddPostModal = ({ onClose, userId, setModal }: IProps) => {
 
   return (
     <>
-      <Notification alert={alert} text="adding new" />
+      <Notification alert={alert} text={`${isAddingError ? "Something went wrong. Try later :)" : `Adding ${title}`}`} />
       <StyledAddPostModal>
         <p>Post title:</p>
         <textarea

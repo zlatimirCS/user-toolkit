@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, isRejectedWithValue } from "@reduxjs/toolkit";
 
 import {
   deleteUser,
@@ -18,7 +18,8 @@ export const removeUser = createAsyncThunk(
     try {
       const response = await deleteUser(initialUser);
       return response;
-    } catch (err) {}
+    } catch (err) {
+    }
   },
 );
 
