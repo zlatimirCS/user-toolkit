@@ -20,6 +20,15 @@ const StyledModal = styled.div`
   border-radius: 5px;
   border: 2px solid var(--med-yellow);
   border-top: 6px solid var(--dark-yellow);
+  @media (max-width: 1200px) {
+    width: 50vw;
+  }
+  @media (max-width: 768px) {
+    width: 70vw;
+  }
+  @media (max-width: 567px) {
+    width: 90vw;
+  }
   p {
     font-size: 18px;
     font-weight: bold;

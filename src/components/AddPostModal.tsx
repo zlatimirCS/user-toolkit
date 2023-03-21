@@ -24,6 +24,9 @@ const StyledAddPostModal = styled.div`
   border: 2px solid var(--med-blue);
   border-top: 6px solid var(--primary);
   font-size: 16px;
+  @media (max-width: 768px) {
+    width: 95vw;
+  }   
   p {
     font-size: 18px;
     font-weight: bold;

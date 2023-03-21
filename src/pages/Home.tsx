@@ -11,6 +11,9 @@ import { fetchPosts } from "../redux/post/postSlice";
 const StyledWrapper = styled.div`
   padding: 24px;
   background-color: var(--bg);
+  @media (max-width: 768px) {
+    padding: 10px;
+  }
 `;
 
 export const Home = () => {

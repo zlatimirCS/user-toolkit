@@ -51,16 +51,40 @@ const StyledTable = styled.table`
     border-bottom: 1px solid var(--border);
     text-align: left;
     padding: 8px;
+    @media (max-width: 567px) {
+      font-size: 14px;
+    }
   }
   .user-post-list {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 20px;
+    @media (max-width: 1400px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    @media (max-width: 992px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    @media (max-width: 768px) {
+      grid-template-columns: repeat(1, 1fr);
+    }
   }
   .row td:last-child,
   .row th:last-child {
     width: 1%;
     white-space: nowrap;
+  }
+  .mobile {
+    display: none;
+    @media (max-width: 768px) {
+      display: table-cell;
+    }
+  }
+  .desktop {
+    display: table-cell;
+    @media (max-width: 768px) {
+      display: none;
+    }
   }
 `;
 
@@ -108,9 +132,10 @@ export const Table = ({ subsetOfUsers }: IProps) => {
       <StyledTable>
         <thead>
           <tr className="head">
-            <th>First name</th>
-            <th>Last name</th>
-            <th>Email</th>
+            <th className="desktop">First name</th>
+            <th className="desktop">Last name</th>
+            <th className="desktop">Email</th>
+            <th className="mobile">Users</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -143,9 +168,13 @@ export const Table = ({ subsetOfUsers }: IProps) => {
                           }
                     }
                   >
-                    <td>{user.first_name}</td>
-                    <td>{user.last_name}</td>
-                    <td>{user.email}</td>
+                    <td className="desktop">{user.first_name}</td>
+                    <td className="mobile">
+                      <p>{user.first_name}</p>
+                      <p>{user.last_name}</p>
+                    </td>
+                    <td className="desktop">{user.last_name}</td>
+                    <td className="desktop">{user.email}</td>
                     <td style={{ textAlign: "right" }}>
                       <Btn
                         onClick={(event: { stopPropagation: () => void }) => {

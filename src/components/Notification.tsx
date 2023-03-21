@@ -18,8 +18,19 @@ const StyledNotification = styled.div`
     display: flex;
     align-items: center;
     z-index: 99;
+    @media (max-width: 567px) {
+       font-size: 10px;
+       padding: 5px;
+    } 
+     @media (max-width: 411px) {
+       font-size: 8px;
+       padding: 2px;
+    }    
     &--active {
       transform: translateX(-24px);
+      @media (max-width: 768px) {
+       transform: translateX(-10px);
+    } 
     }
     p {
       margin-left: 5px;

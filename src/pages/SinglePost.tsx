@@ -19,6 +19,9 @@ import {
 
 const StyledPost = styled.div`
   padding: 24px;
+  @media (max-width: 768px) {
+    padding: 10px;
+  }
   h1 {
     margin-bottom: 2vh;
   }
@@ -64,7 +67,14 @@ const StyledPost = styled.div`
     display: flex;
     justify-content: space-between;
     margin-top: 2vh;
-  }
+    @media (max-width: 567px) {
+    flex-direction: column;
+    }}
+    .btn-container > div:first-child {
+      @media (max-width: 567px) {
+     margin-bottom: 10px;
+    }
+    }
 `;
 
 export const SinglePost = () => {
