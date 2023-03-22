@@ -2,12 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 
-import { BackButton } from "../components/BackButton";
-import { Btn } from "../components/Btn";
-import { ConfirmModal } from "../components/ConfirmModal";
-import { Notification } from "../components/Notification";
-import { Overlay } from "../components/Overlay";
-import { convertDate } from "../helper";
 import { useAppDispatch } from "../hooks/useAppDispatch";
 import { useTypedSelector } from "../hooks/useTypedSelector";
 import {
@@ -16,6 +10,14 @@ import {
   removePost,
   selectPosts,
 } from "../redux/post/postSlice";
+
+import { BackButton } from "../components/BackButton";
+import { Btn } from "../components/Btn";
+import { ConfirmModal } from "../components/ConfirmModal";
+import { Notification } from "../components/Notification";
+import { Overlay } from "../components/Overlay";
+
+import { convertDate } from "../helper";
 
 const StyledPost = styled.div`
   padding: 24px;
@@ -68,13 +70,14 @@ const StyledPost = styled.div`
     justify-content: space-between;
     margin-top: 2vh;
     @media (max-width: 567px) {
-    flex-direction: column;
-    }}
-    .btn-container > div:first-child {
-      @media (max-width: 567px) {
-     margin-bottom: 10px;
+      flex-direction: column;
     }
+  }
+  .btn-container > div:first-child {
+    @media (max-width: 567px) {
+      margin-bottom: 10px;
     }
+  }
 `;
 
 export const SinglePost = () => {
@@ -92,7 +95,8 @@ export const SinglePost = () => {
   const [bodyText, setBodyText] = useState<string>("");
   const [modal, setModal] = useState<boolean>(false);
 
-  const curPost = posts && posts.filter((post: { id: string }) => post.id === id)[0];
+  const curPost =
+    posts && posts.filter((post: { id: string }) => post.id === id)[0];
   const date = convertDate(curPost?.datePosted);
 
   useEffect(() => {

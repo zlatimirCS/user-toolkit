@@ -2,13 +2,15 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-import { ConfirmModal } from "../components/ConfirmModal";
-import { Overlay } from "../components/Overlay";
-import { convertDate } from "../helper";
 import { useAppDispatch } from "../hooks/useAppDispatch";
 import { removePost } from "../redux/post/postSlice";
+
 import { Btn } from "./Btn";
 import { Notification } from "./Notification";
+import { ConfirmModal } from "../components/ConfirmModal";
+import { Overlay } from "../components/Overlay";
+
+import { convertDate } from "../helper";
 
 const StyledPostBlurb = styled.div`
   padding: 10px;

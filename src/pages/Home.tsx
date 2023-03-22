@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
-import { Pagination } from "../components/Pagination";
-import { Table } from "../components/Table";
-import { Spinner } from "../components/Spinner";
 import { useAppDispatch } from "../hooks/useAppDispatch";
 import { useTypedSelector } from "../hooks/useTypedSelector";
 import { fetchUsers, selectUsers, loadingUsers } from "../redux/user/userSlice";
 import { fetchPosts } from "../redux/post/postSlice";
+
+import { Pagination } from "../components/Pagination";
+import { Table } from "../components/Table";
+import { Spinner } from "../components/Spinner";
 
 const StyledWrapper = styled.div`
   padding: 24px;
@@ -37,16 +38,16 @@ export const Home = () => {
   }, []);
 
   useEffect(() => {
+    setFilteredUsers(users);
+  }, [users]);
+
+  useEffect(() => {
     setFilteredUsers(
       users.filter((user) =>
         user.first_name.toLowerCase().startsWith(searchTerm.toLowerCase()),
       ),
     );
   }, [searchTerm]);
-
-  useEffect(() => {
-    setFilteredUsers(users);
-  }, [users]);
 
   // pagination
   const [currentPage, setCurrentPage] = useState<number>(

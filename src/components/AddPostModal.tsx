@@ -3,11 +3,12 @@ import styled from "styled-components";
 import { v4 as uuidv4 } from "uuid";
 
 import { useAppDispatch } from "../hooks/useAppDispatch";
-import { Btn } from "./Btn";
+import { useTypedSelector } from "../hooks/useTypedSelector";
 import { addNewPost } from "../redux/post/postSlice";
+
+import { Btn } from "./Btn";
 import { Notification } from "./Notification";
 import { addingError } from "../redux/post/postSlice";
-import { useTypedSelector } from "../hooks/useTypedSelector";
 
 const StyledAddPostModal = styled.div`
   position: fixed;
@@ -26,7 +27,7 @@ const StyledAddPostModal = styled.div`
   font-size: 16px;
   @media (max-width: 768px) {
     width: 95vw;
-  }   
+  }
   p {
     font-size: 18px;
     font-weight: bold;
@@ -65,7 +66,14 @@ export const AddPostModal = ({ onClose, userId, setModal }: IProps) => {
 
   return (
     <>
-      <Notification alert={alert} text={`${isAddingError ? "Something went wrong. Try later :)" : `Adding ${title}`}`} />
+      <Notification
+        alert={alert}
+        text={`${
+          isAddingError
+            ? "Something went wrong. Try later :)"
+            : `Adding ${title}`
+        }`}
+      />
       <StyledAddPostModal>
         <p>Post title:</p>
         <textarea
