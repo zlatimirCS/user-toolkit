@@ -25,7 +25,7 @@ describe("usersSlice", () => {
     expect(reducer(undefined, { type: undefined })).toEqual({
       userList: [],
       loadingUsers: true,
-      expandedUserList: []
+      expandedUserList: [],
     });
   });
 
@@ -35,29 +35,29 @@ describe("usersSlice", () => {
     const previousState: UserState = {
       userList: [],
       loadingUsers: false,
-      expandedUserList: []
+      expandedUserList: [],
     };
 
     expect(reducer(previousState, action)).toEqual({
       userList: TestUsers,
       loadingUsers: false,
-      expandedUserList: []
+      expandedUserList: [],
     });
   });
 
-  it("remove user", () => {
-    const action = { type: removeUser.fulfilled.type, meta: { arg: 1} };
+  it("remove user from list", () => {
+    const action = { type: removeUser.fulfilled.type, meta: { arg: 1 } };
 
     const previousState: UserState = {
       userList: TestUsers,
       loadingUsers: false,
-      expandedUserList: []
+      expandedUserList: [],
     };
 
     expect(reducer(previousState, action)).toEqual({
       userList: TestUsers.filter((user) => user.id !== 1),
       loadingUsers: false,
-      expandedUserList: []
+      expandedUserList: [],
     });
   });
 });

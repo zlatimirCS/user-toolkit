@@ -19,13 +19,34 @@ const StyledWrapper = styled.div`
 
 export const Home = () => {
   const dispatch = useAppDispatch();
-  const users = useTypedSelector(selectUsers);
   const loading = useTypedSelector(loadingUsers);
+
+  const users = useTypedSelector(selectUsers);
+  const [filteredUsers, setFilteredUsers] = useState(users);
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const changeSearchTerm = (e: {
+    target: { value: React.SetStateAction<string> };
+  }) => {
+    setSearchTerm(e.target.value);
+  };
 
   useEffect(() => {
     dispatch(fetchUsers());
     dispatch(fetchPosts());
   }, []);
+
+  useEffect(() => {
+    setFilteredUsers(
+      users.filter((user) =>
+        user.first_name.toLowerCase().startsWith(searchTerm.toLowerCase()),
+      ),
+    );
+  }, [searchTerm]);
+
+  useEffect(() => {
+    setFilteredUsers(users);
+  }, [users]);
 
   // pagination
   const [currentPage, setCurrentPage] = useState<number>(
@@ -35,19 +56,22 @@ export const Home = () => {
   const recordsPerPage = 20;
   const indexOfLastRecord = currentPage * recordsPerPage;
   const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
-  const subsetOfUsers = users.slice(indexOfFirstRecord, indexOfLastRecord);
-  const nPages = Math.ceil(users.length / recordsPerPage);
+  const subsetOfUsers = filteredUsers?.slice(
+    indexOfFirstRecord,
+    indexOfLastRecord,
+  );
+  const nPages = Math.ceil(filteredUsers.length / recordsPerPage);
   const pNumbers = [...Array(nPages).keys()].slice(1);
   const currentPSlice =
     currentPage >= 3 && currentPage !== pNumbers.length
       ? [
           currentPage !== 1 ? currentPage - 1 : 1,
           currentPage === 1 ? 2 : currentPage,
-          users.length > recordsPerPage * 2 &&
+          filteredUsers.length > recordsPerPage * 2 &&
           currentPage !== pNumbers.length &&
           currentPage !== 1
             ? currentPage + 1
-            : users.length > recordsPerPage * 2 && currentPage === 1
+            : filteredUsers.length > recordsPerPage * 2 && currentPage === 1
             ? currentPage + 2
             : 0,
         ]
@@ -79,8 +103,9 @@ export const Home = () => {
   return (
     <StyledWrapper>
       <h1>NaviPartner Tech Test</h1>
+      <input onChange={changeSearchTerm} type="text" value={searchTerm}></input>
       {loading ? <Spinner /> : <Table subsetOfUsers={subsetOfUsers} />}
-      {users.length > recordsPerPage && !loading && (
+      {filteredUsers.length > recordsPerPage && !loading && (
         <Pagination
           active={active}
           currentPSlice={currentPSlice}
