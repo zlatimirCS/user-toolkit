@@ -29,7 +29,7 @@ describe("usersSlice", () => {
     });
   });
 
-  it("adds users to list when fetched", () => {
+  it("should add users to list when fetched", () => {
     const action = { type: fetchUsers.fulfilled.type, payload: TestUsers };
 
     const previousState: UserState = {
@@ -45,7 +45,7 @@ describe("usersSlice", () => {
     });
   });
 
-  it("remove user from list", () => {
+  it("should remove user from list", () => {
     const action = { type: removeUser.fulfilled.type, meta: { arg: 1 } };
 
     const previousState: UserState = {

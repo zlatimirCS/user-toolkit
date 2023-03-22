@@ -16,6 +16,14 @@ const StyledWrapper = styled.div`
   @media (max-width: 768px) {
     padding: 10px;
   }
+  .flex {
+    display: flex;
+    justify-content: space-between;
+  }
+  input {
+    padding: 10px;
+    border-radius: 5px;
+  }
 `;
 
 export const Home = () => {
@@ -103,8 +111,15 @@ export const Home = () => {
 
   return (
     <StyledWrapper>
-      <h1>NaviPartner Tech Test</h1>
-      <input onChange={changeSearchTerm} type="text" value={searchTerm}></input>
+      <div className="flex">
+        <h1>NaviPartner Tech Test</h1>
+        <input
+          onChange={changeSearchTerm}
+          type="text"
+          value={searchTerm}
+          placeholder="Search users by first name"
+        ></input>
+      </div>
       {loading ? <Spinner /> : <Table subsetOfUsers={subsetOfUsers} />}
       {filteredUsers.length > recordsPerPage && !loading && (
         <Pagination
