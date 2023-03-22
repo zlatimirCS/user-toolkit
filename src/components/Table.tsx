@@ -139,77 +139,68 @@ export const Table = ({ subsetOfUsers }: IProps) => {
             <th>Actions</th>
           </tr>
         </thead>
-        {loading ? (
-          <tbody>
-            <tr>
-              <td>load</td>
-            </tr>
-          </tbody>
-        ) : (
-          <tbody>
-            {subsetOfUsers.map((user) => {
-              const hasPosts =
-                posts.filter((post) => post.userId === user.id).length > 0;
-              return (
-                <React.Fragment key={user.id}>
-                  <tr
-                    className={`${
-                      expandList.includes(user.id) && hasPosts
-                        ? "row row--active"
-                        : "row"
-                    }`}
-                    onClick={
-                      hasPosts
-                        ? () => dispatch(toggleUserList(user.id))
-                        : () => {
-                            setNotType("no-posts");
-                            setAlert(true);
-                            setCurUser(user.first_name);
-                          }
-                    }
-                  >
-                    <td className="desktop">{user.first_name}</td>
-                    <td className="mobile">
-                      <p>{user.first_name}</p>
-                      <p>{user.last_name}</p>
-                    </td>
-                    <td className="desktop">{user.last_name}</td>
-                    <td className="desktop">{user.email}</td>
-                    <td style={{ textAlign: "right" }}>
-                      <Btn
-                        onClick={(event: { stopPropagation: () => void }) => {
-                          event.stopPropagation();
-                          setCurUserId(user.id);
-                          setModal(true);
-                        }}
-                        text="Delete user"
-                        type="alert"
-                      />
+        <tbody>
+          {subsetOfUsers.map((user) => {
+            const hasPosts =
+              posts.filter((post) => post.userId === user.id).length > 0;
+            return (
+              <React.Fragment key={user.id}>
+                <tr
+                  className={`${
+                    expandList.includes(user.id) && hasPosts
+                      ? "row row--active"
+                      : "row"
+                  }`}
+                  onClick={
+                    hasPosts
+                      ? () => dispatch(toggleUserList(user.id))
+                      : () => {
+                          setNotType("no-posts");
+                          setAlert(true);
+                          setCurUser(user.first_name);
+                        }
+                  }
+                >
+                  <td className="desktop">{user.first_name}</td>
+                  <td className="mobile">
+                    <p>{user.first_name}</p>
+                    <p>{user.last_name}</p>
+                  </td>
+                  <td className="desktop">{user.last_name}</td>
+                  <td className="desktop">{user.email}</td>
+                  <td style={{ textAlign: "right" }}>
+                    <Btn
+                      onClick={(event: { stopPropagation: () => void }) => {
+                        event.stopPropagation();
+                        setCurUserId(user.id);
+                        setModal(true);
+                      }}
+                      text="Delete user"
+                      type="alert"
+                    />
+                  </td>
+                </tr>
+                {expandList.includes(user.id) && hasPosts ? (
+                  <tr className="rowExpand">
+                    <td colSpan={4}>
+                      <div className="user-post-list">
+                        {posts
+                          .filter((post) => post.userId === user.id)
+                          .sort(
+                            (a, b) => -a.datePosted.localeCompare(b.datePosted),
+                          )
+                          .map((item) => (
+                            <PostBlurb key={item.id} post={item} />
+                          ))}
+                        <AddPostBlurb userId={user.id} />
+                      </div>
                     </td>
                   </tr>
-                  {expandList.includes(user.id) && hasPosts ? (
-                    <tr className="rowExpand">
-                      <td colSpan={4}>
-                        <div className="user-post-list">
-                          {posts
-                            .filter((post) => post.userId === user.id)
-                            .sort(
-                              (a, b) =>
-                                -a.datePosted.localeCompare(b.datePosted),
-                            )
-                            .map((item) => (
-                              <PostBlurb key={item.id} post={item} />
-                            ))}
-                          <AddPostBlurb userId={user.id} />
-                        </div>
-                      </td>
-                    </tr>
-                  ) : null}
-                </React.Fragment>
-              );
-            })}
-          </tbody>
-        )}
+                ) : null}
+              </React.Fragment>
+            );
+          })}
+        </tbody>
       </StyledTable>
       {modal ? <Overlay /> : null}
       {modal ? (

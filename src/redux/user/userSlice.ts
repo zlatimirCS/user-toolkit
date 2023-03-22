@@ -1,10 +1,10 @@
-import { createAsyncThunk, createSlice, isRejectedWithValue } from "@reduxjs/toolkit";
-
 import {
-  deleteUser,
-  getUsers,
-  User,
-} from "../../data/data";
+  createAsyncThunk,
+  createSlice,
+  isRejectedWithValue,
+} from "@reduxjs/toolkit";
+
+import { deleteUser, getUsers, User } from "../../data/data";
 import { RootState } from "../store";
 
 export const fetchUsers = createAsyncThunk<User[]>(
@@ -19,6 +19,7 @@ export const removeUser = createAsyncThunk(
       const response = await deleteUser(initialUser);
       return response;
     } catch (err) {
+      return isRejectedWithValue(err);
     }
   },
 );
